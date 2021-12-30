@@ -9,7 +9,7 @@ from metrics.metric import Metric
 
 
 class ReactHeatmap(Metric):
-    name = "react_heatmap"
+    name = "reacts"
 
     def __init__(self, messages: pd.DataFrame):
         super().__init__(messages)

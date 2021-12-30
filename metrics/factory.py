@@ -11,15 +11,16 @@ from metrics.reacts.heatmap import ReactHeatmap
 def provide_metric(
     name: str,
     messages: pd.DataFrame,
-    filter_top: bool = False,
-    filter_bottom: bool = False,
-    filter_word: str = None,
+    filter_top: bool,
+    filter_bottom: bool,
+    filter_word: str,
+    window: int,
 ) -> Metric:
     name = name.lower()
     if name == CumulativeActivity.name:
         return CumulativeActivity(messages, filter_top, filter_bottom)
     if name == SmaActivity.name:
-        return SmaActivity(messages, filter_top, filter_bottom)
+        return SmaActivity(messages, filter_top, filter_bottom, window)
     if name == MessageAwards.name:
         return MessageAwards(messages)
     if name == SenderAwards.name:

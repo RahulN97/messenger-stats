@@ -7,14 +7,15 @@ from metrics.metric import Metric
 
 
 class SmaActivity(Metric):
-    WINDOW = 40
-
     name = "sma_activity"
 
-    def __init__(self, messages: pd.DataFrame, filter_top: bool, filter_bottom: bool):
+    def __init__(
+        self, messages: pd.DataFrame, filter_top: bool, filter_bottom: bool, window: int
+    ):
         super().__init__(messages)
         self.filter_top = filter_top
         self.filter_bottom = filter_bottom
+        self.window = window
 
     def compute_metric(self) -> List[Figure]:
         participants = self.get_participants()
@@ -25,7 +26,7 @@ class SmaActivity(Metric):
             p_df["date"] = self.messages["timestamp"].apply(self.timestamp_to_date)
             date_df = pd.to_datetime(p_df["date"])
             count_df = date_df.groupby(date_df.dt.floor("d")).size().reset_index(name=p)
-            count_df[p] = count_df[p].rolling(window=self.WINDOW).mean()
+            count_df[p] = count_df[p].rolling(window=self.window).mean()
             count_df.set_index("date", inplace=True)
             dfs.append(count_df)
 
@@ -41,7 +42,7 @@ class SmaActivity(Metric):
 
     def _plot_sma_all(self, dfs: List[pd.DataFrame]) -> Chart:
         ax = dfs[0].plot(
-            title=f"Moving Avg of messages sent per day on a {self.WINDOW} day window for all chatters"
+            title=f"Moving Avg of messages sent per day on a {self.window} day window for all chatters"
         )
         for i in range(1, len(dfs)):
             dfs[i].plot(ax=ax)
@@ -51,7 +52,7 @@ class SmaActivity(Metric):
     def _plot_sma_top(self, dfs: List[pd.DataFrame], n: int) -> Chart:
         dfs = self._copy_dfs(dfs[:n])
         ax = dfs[0].plot(
-            title=f"Moving Avg of messages sent per day on a {self.WINDOW} day window for top chatters"
+            title=f"Moving Avg of messages sent per day on a {self.window} day window for top chatters"
         )
         for i in range(1, len(dfs)):
             dfs[i].plot(ax=ax)
@@ -61,7 +62,7 @@ class SmaActivity(Metric):
     def _plot_sma_bottom(self, dfs: List[pd.DataFrame], n: int) -> Chart:
         dfs = self._copy_dfs(dfs[n:])
         ax = dfs[0].plot(
-            title=f"Moving Avg of messages sent per day on a {self.WINDOW} day window for bottom chatters"
+            title=f"Moving Avg of messages sent per day on a {self.window} day window for bottom chatters"
         )
         for i in range(1, len(dfs)):
             dfs[i].plot(ax=ax)

@@ -15,7 +15,7 @@ METRICS = [
     "sma_activity",
     "message_awards",
     "sender_awards",
-    "react_heatmap",
+    "reacts",
 ]
 
 
@@ -47,6 +47,12 @@ def construct_argparser() -> ArgumentParser:
         "--filter-word",
         type=str,
         help="track how many times a specific word was said in chat",
+    )
+    parser.add_argument(
+        "--sma-window",
+        type=int,
+        default=40,
+        help="rolling window of days for sma_window metric",
     )
     return parser
 
@@ -114,6 +120,7 @@ def main():
             filter_top=args.filter_top,
             filter_bottom=args.filter_bottom,
             filter_word=args.filter_word,
+            window=args.sma_window,
         )
         for n in names
     ]
