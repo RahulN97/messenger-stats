@@ -24,7 +24,7 @@ class ReactedMessage:
 
 class MessageAwards(Metric):
     TOP_COMMON = 100
-    TOP_REACTED = 30
+    TOP_REACTED = 50
     BLACKLIST = {
         "the call",
         "started a call",

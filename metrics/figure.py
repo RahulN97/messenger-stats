@@ -9,6 +9,7 @@ class Figure(ABC):
 
     def __init__(self, title: str):
         self.title = title
+        self.saved = False
 
     @abstractmethod
     def save(self):
@@ -30,6 +31,8 @@ class Chart(Figure):
             self.SAVE_PATH.format(title=self.title, ext=self.EXTENSION),
             dpi=self.figure.get_dpi() * self.ZOOM,
         )
+        self.figure.clf()
+        self.saved = True
 
 
 class Table(Figure):
@@ -41,3 +44,4 @@ class Table(Figure):
 
     def save(self):
         self.table.to_csv(self.SAVE_PATH.format(title=self.title, ext=self.EXTENSION))
+        self.saved = True

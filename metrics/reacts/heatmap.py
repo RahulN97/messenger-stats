@@ -40,19 +40,21 @@ class ReactHeatmap(Metric):
         ]
 
     def _generate_raw_heatmap(self, df: pd.DataFrame) -> Chart:
-        s = sns.heatmap(df, annot=True, fmt="g")
+        s = sns.heatmap(df, annot=True, fmt="g", annot_kws={"size": 18})
         s.set(title="Raw React Heatmap", xlabel="Sender", ylabel="Reactor")
         s.set_xticklabels(labels=s.get_xticklabels(), rotation=60, ha="right")
         s.figure.tight_layout()
 
-        return Chart(title="raw_reacts_heatmap", figure=s.get_figure())
+        chart = Chart(title="raw_reacts_heatmap", figure=s.get_figure())
+        chart.save()
+        return chart
 
     def _generate_pct_heatmap(self, df: pd.DataFrame) -> Chart:
         counts = self._count_messages_sent(df)
         for col in df.columns:
             df[col] = round(100 * (df[col] / counts[col]), 2)
 
-        s = sns.heatmap(df, annot=True, fmt="g")
+        s = sns.heatmap(df, annot=True, fmt="g", annot_kws={"size": 18})
         s.set(
             title="Percent of Messages Reacted Heatmap",
             xlabel="Sender",
@@ -61,7 +63,9 @@ class ReactHeatmap(Metric):
         s.set_xticklabels(labels=s.get_xticklabels(), rotation=60, ha="right")
         s.figure.tight_layout()
 
-        return Chart(title="pct_reacts_heatmap", figure=s.get_figure())
+        chart = Chart(title="pct_reacts_heatmap", figure=s.get_figure())
+        chart.save()
+        return chart
 
     def _most_reacts_sent(self, df: pd.DataFrame) -> Table:
         df["sent"] = df.sum(axis=1)

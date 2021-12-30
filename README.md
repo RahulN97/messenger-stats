@@ -68,6 +68,8 @@ Since messenger data is sensitive, this program will not be run as a service, an
 <br/>
 If everything runs successfully, the program should output something like the following on the terminal:
 <img src="docs/imgs/run-success.png" width="60%" height="60%">
+<br/>
+and all generated figures will be in the `figures` folder inside the root of the repo
 
 ### Command Line Options
 Flag|Required|Description

@@ -25,7 +25,8 @@ class Metric(ABC):
         try:
             print(f"computing {self.name}")
             for figure in self.compute_metric():
-                figure.save()
+                if not figure.saved:
+                    figure.save()
             return Status(metric=self.name, success=True)
         except Exception as e:
             return Status(
