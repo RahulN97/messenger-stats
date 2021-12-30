@@ -30,7 +30,9 @@ class MessageAwards(Metric):
         "started a call",
         "this poll",
         "the video chat",
-        "you sent an attachment",
+        "sent an attachment",
+        "changed the group photo",
+        "to your message",
     }
 
     name = "message_awards"

@@ -60,7 +60,9 @@ class ReactHeatmap(Metric):
             xlabel="Sender",
             ylabel="Reactor",
         )
-        s.set_xticklabels(labels=s.get_xticklabels(), rotation=60, ha="right")
+        s.set_xticklabels(
+            labels=s.get_xticklabels(), rotation=60, ha="right", size="large"
+        )
         s.figure.tight_layout()
 
         chart = Chart(title="pct_reacts_heatmap", figure=s.get_figure())
