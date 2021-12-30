@@ -22,12 +22,12 @@ Since messenger data is sensitive, this program will not be run as a service, an
 <img src="docs/imgs/fb-info.png">
 <br/>
 3. Here, for file options, select Format `JSON`. Media quality can be anything and `All time` is recommended for the date range.
-<br/>
+<br/><br/>
 4. For information to download, deselect all and only select `Messages`. Then click `Request a download` at the bottom of the page.
 <img src="docs/imgs/fb-request.png">
 <br/>
 5. Facebook will usually take 1-3 days to service the request, but once completed, the files can be downloaded from the `Available files` option in the `Download Your Information` page.
-<br/>
+<br/><br/>
 6. There will be multiple zip files available (named like "facebook-xyz.zip"). Unzip these one by one and find the folder `messages` that contains all the message data (chats will be nested in `facebook-xyz/messages/inbox/`). This `messages` folder will be used in the next step.
 
 ### Install and Run
